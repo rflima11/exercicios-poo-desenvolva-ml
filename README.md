@@ -37,4 +37,3 @@ Esse design viola **SRP** (uma classe com múltiplos motivos para mudar) e **OCP
 - Use **interfaces** para `EstrategiaComissao`, `GeradorRelatorio` e `DestinoRelatorio` (ou similar);
 - Evite `if/else` encadeados para comissão; prefira polimorfismo;
 
-Boa refatoração! 💪
