@@ -1,39 +1,40 @@
-# Exercício: SRP e OCP — Relatório de Vendas em HTML
+# Exercício: SRP e OCP — Relatório de Vendas
 
-Você recebeu um código de `RelatorioVendas` que:
-- Calcula comissão de acordo com o tipo do vendedor (`Junior`, `Pleno`, `Senior`);
-- Gera o conteúdo **HTML** do relatório;
-- **Salva** o relatório em um arquivo **.html** dentro da pasta `./relatorios` (relativa ao diretório atual).
+Você recebeu um sistema simples para geração de relatórios de vendas em HTML.  
+Atualmente, a classe `RelatorioVendas`:
 
-Esse design viola **SRP** (uma classe com múltiplos motivos para mudar) e **OCP** (para estender comportamentos, é necessário modificar a classe existente).
+- Calcula a comissão do vendedor de acordo com sua senioridade (`Junior`, `Pleno`, `Senior`);
+- Gera o conteúdo em HTML do relatório;
+- Salva o arquivo no diretório `./relatorios`.
 
 ---
 
-## Tarefas
+## Problema
+Essa implementação concentra **múltiplas responsabilidades em uma única classe**.  
+Com isso, temos alguns efeitos negativos:
 
-1. **Mapeie as responsabilidades** atualmente acopladas na classe:
-    - Regra de negócio (cálculo da comissão);
-    - Apresentação (geração do HTML);
-    - Persistência/infra (criação de diretório, nome do arquivo, escrita em disco);
+- Viola o **SRP (Single Responsibility Principle)**: a classe muda por vários motivos diferentes (regras de comissão, formato do relatório, regras de persistência).  
+- Viola o **OCP (Open/Closed Principle)**: para adicionar novos cálculos de comissão, novos formatos de relatório (ex.: PDF, Markdown) ou novas formas de salvar (ex.: e-mail, banco de dados), é necessário modificar diretamente a classe existente.  
 
-2. **Refatore aplicando SRP**:
-    - Crie **uma classe/entidade** apenas para os dados do relatório;
-    - Crie **estratégias de comissão** (ex.: `ComissaoJunior`, `ComissaoPleno`, `ComissaoSenior`);
-    - Crie **um gerador de relatório** (ex.: `GeradorRelatorioHtml`) responsável somente por receber dados e produzir HTML;
-    - Crie **um salvador** (ex.: `SalvadorArquivoLocal`) que saiba salvar conteúdo em `./relatorios`;
+---
 
-3. **Aplique OCP**:
-    - Sua solução deve permitir **adicionar um novo tipo de comissão** sem modificar código existente (apenas adicionando uma nova estratégia);
-    - Sua solução deve permitir **adicionar um novo formato de relatório** (ex.: PDF, Markdown, CSV) sem modificar as classes já estáveis;
-    - Sua solução deve permitir **trocar o destino de persistência** (ex.: enviar por e-mail, salvar em S3, banco de dados) sem alterar classes existentes.
+## Sua tarefa
+1. **Analise o código fornecido** e identifique claramente as violações de SRP e OCP.  
+2. **Refatore o código** de forma que:  
+   - Cada parte do sistema tenha uma responsabilidade única;  
+   - Seja fácil estender a solução sem modificar código já existente.  
+3. **Mostre um exemplo de uso** que demonstre a flexibilidade da sua solução.  
 
-4. **Demonstre o uso**:
-    - Crie um `main` (ou teste) que monte o pipeline: **entidade → estratégia de comissão → gerador HTML → salvador em arquivo → orquestrador**;
-    - Mostre que é simples trocar a estratégia de comissão e/ou o gerador de relatório sem tocar nas outras classes.
+---
+
+## O que observar
+- Evite classes que façam mais de uma coisa ao mesmo tempo.  
+- Prefira separar responsabilidades e trabalhar com abstrações (interfaces ou classes abstratas) para permitir extensões futuras.  
+- Seu código deve permitir adicionar **novos tipos de comissão**, **novos formatos de relatório** e **novos destinos de saída** sem alterar as classes já existentes.  
 
 ---
 
 ## Dicas
-- Use **interfaces** para `EstrategiaComissao`, `GeradorRelatorio` e `DestinoRelatorio` (ou similar);
-- Evite `if/else` encadeados para comissão; prefira polimorfismo;
-
+- Pense em termos de **responsabilidades** antes de sair refatorando.  
+- Considere usar polimorfismo para evitar `if/else` repetitivos.  
+- Um bom design permite que você **adicione** novas funcionalidades sem precisar **mexer** no que já funciona.  
