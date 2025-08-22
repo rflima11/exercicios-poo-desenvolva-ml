@@ -15,14 +15,12 @@ Esse design viola **SRP** (uma classe com múltiplos motivos para mudar) e **OCP
     - Regra de negócio (cálculo da comissão);
     - Apresentação (geração do HTML);
     - Persistência/infra (criação de diretório, nome do arquivo, escrita em disco);
-    - Orquestração do fluxo.
 
 2. **Refatore aplicando SRP**:
     - Crie **uma classe/entidade** apenas para os dados do relatório;
     - Crie **estratégias de comissão** (ex.: `ComissaoJunior`, `ComissaoPleno`, `ComissaoSenior`);
     - Crie **um gerador de relatório** (ex.: `GeradorRelatorioHtml`) responsável somente por receber dados e produzir HTML;
     - Crie **um salvador** (ex.: `SalvadorArquivoLocal`) que saiba salvar conteúdo em `./relatorios`;
-    - Crie **um serviço orquestrador** (ex.: `ProcessadorRelatorio`) que use as dependências acima.
 
 3. **Aplique OCP**:
     - Sua solução deve permitir **adicionar um novo tipo de comissão** sem modificar código existente (apenas adicionando uma nova estratégia);
