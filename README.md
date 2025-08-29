@@ -40,38 +40,6 @@ System.out.println(servico.confirmarPagamento(p3));
 System.out.println(servico.confirmarPagamento(p4));
 ```
 
----
-
-## Exercício 2 – Relatório de Funcionários
-Você deve gerar relatórios de funcionários que mostrem nome, salário e bônus. O problema é que `Estagiario` não recebe bônus, mas a classe lança uma exceção quando `calcularBonus()` é chamado, quebrando o LSP.
-
-### Estrutura inicial
-- Classe base: `Funcionario`
-- Subclasses: `FuncionarioPadrao`, `Gerente`, `Estagiario`
-- Serviço: `RelatorioFuncionarios` que gera um resumo com base no contrato de `Funcionario`.
-
-### Tarefa
-1. Identifique onde ocorre a violação do LSP.
-2. Refatore o código para que `Estagiario` possa ser usado de forma segura onde `Funcionario` é esperado.
-3. Pense em diferentes soluções:
-   - Separar `FuncionarioComBonus` de `FuncionarioSemBonus`.
-   - Criar uma política de bônus (`PoliticaDeBonus`).
-   - Usar composição para representar benefícios.
-
-### Uso esperado
-```java
-RelatorioFuncionarios relatorio = new RelatorioFuncionarios();
-Funcionario f1 = new FuncionarioPadrao("Ana", 3000);
-Funcionario f2 = new Gerente("Carlos", 8000);
-Funcionario f3 = new Estagiario("Pedro", 1500); // comportamento inesperado
-
-System.out.println(relatorio.gerarResumo(f1));
-System.out.println(relatorio.gerarResumo(f2));
-System.out.println(relatorio.gerarResumo(f3));
-```
-
----
-
 ## Importante
 - **Não há apenas uma resposta correta**. O objetivo é exercitar a análise crítica de design.
 - O foco está em **identificar a quebra do LSP e propor alternativas**.
