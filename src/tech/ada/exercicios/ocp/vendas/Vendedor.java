@@ -1,4 +1,4 @@
-package tech.ada.exercicios.vendas;
+package tech.ada.exercicios.ocp.vendas;
 
 public class Vendedor {
 
